@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+
+<head>
+<meta charset="UTF-8" />
+<title>Insert title here</title>
+</head>
+<body style ="background-color:#F8F8F8">
+<style>
+.layui-card-header{
+padding:10px;
+margin-top:10px;
+font-size: 25px !important;
+
+}
+.layui-card-header:hover{
+background-color:#5FB878;
+}
+.layui-card-body{
+height:55px;
+font-color:#eeeeee !important;
+}
+.category,.category1{
+width:100px;
+border:none !important;
+}
+.category:hover{
+background-color:#5FB878 !important;} 
+
+</style>
+<nav th:replace = "include/header::header"></nav>
+<div>
+<!--  
+<div sec:authorize="isAuthenticated()">
+		<p>已登录</p>
+		<p>登录名：<input type = "text" sec:authentication="principal.username"></p>
+		<p>Password：<span sec:authentication="principal.password"></span></p>
+		<div sec:authentication="principal.authorities"></div> <!-- works fine --><!--  
+		<p>Email ：<span sec:authentication="principal.email"></span></p>
+		<p>Name：<span sec:authentication="principal.username"></span></p>
+
+		<p>拥有的角色：
+			<span sec:authorize="hasRole('ROLE_ADMIN')">管理员</span>
+			<span sec:authorize="hasRole('ROLE_USER')">用户</span>
+		</p>
+	</div>
+</div>
+	<div sec:authorize="!isAuthenticated()"><p>未登录</p></div>
+	<div th:each = "blog : ${blogs}">
+	<div th:text = "${blog.title}"></div>
+	<div th:text=  "${blog.subTitle}"> </div>
+	<div><a th:href="@{blog/{id}(id = ${blog.id})}"><button th:text = "${blog.id}"></button></a></div>
+	</div>
+-->
+ <div class="layui-row" >
+   <div class="layui-col-md3 ">    <div style = "width:1px;height: 1px"></div>
+   <div style = ";position:fixed;top:60px;left:430px;">
+
+    <div style = "float: right;border:1px;position:relative;right:30px;top:10px">
+    <div><button class="layui-btn layui-btn-danger category1">分类</button></div>
+    <div th:each = "c : ${categories}" >
+   <a th:href = "@{/category/{id}/1(id = ${c.id})}"> <button class="category layui-btn layui-btn-primary" th:text= "${c.name}"></button></a>
+    </div>
+    </div>
+    </div>
+    </div>
+  <div class="layui-col-md5"  style = "position:relative;left:0px;top:-2px">
+       <div style = "width:1px;height: 1px;"></div>
+       	<div th:each = "blog : ${blogs}">
+       	<div class="layui-card" style = "margin:0px">
+ 		<a th:href="@{blog/{id}(id = ${blog.id})}"> 
+ 		<div class="layui-card-header">
+ 		<span  th:text = "${blog.title}"></span>
+ 	
+ 		</div></a>
+ 			 <div class="layui-card-body">
+ 			 <span th:text=  "${blog.subTitle}"></span>
+ 	<br />
+ 		<span style = "float:right" th:text = " '作者 --->' +${blog.user.name}"></span>
+  </div>
+</div>
+       	</div>
+    </div>
+    <div class="layui-col-md3" style = "position:relative;left:30px;top:-2px;">
+     <div style = "width:1px;height: 1px;"></div>
+     <div class="layui-collapse">
+  <div class="layui-colla-item">
+    <h2 class="layui-colla-title">关于本站</h2>
+    <div class="layui-colla-content layui-show" style = "background-color: white;"><span style = "line-height:41px;">本站采用了Springboot+JPA来完成主要功能，并使用了Spring Security安全框架来进行加密和权限管理，ElasticSearch优化了搜索引擎</span></div>
+  </div>
+  <div class="layui-colla-item">
+    <h2 class="layui-colla-title"> - - </h2>
+    <div class="layui-colla-content" style = "background-color: white;">前端是真的烂</div>
+  </div>
+  <div class="layui-colla-item">
+    <h2 class="layui-colla-title">to be continue</h2>
+    <div class="layui-colla-content" style = "background-color: white;"><span style = "line-height:41px;">有空会加入Redis,MQ?<br />看情况而定吧</span></div>
+  </div>
+</div>
+ 
+    </div>
+ </div>
+<script>
+//注意：折叠面板 依赖 element 模块，否则无法进行功能性操作
+layui.use('element', function(){
+  var element = layui.element;
+  
+  //…
+});
+</script>
+
+</body>
+</html>

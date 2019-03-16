@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>Insert title here</title>
+</head>
+<body>
+<style>
+.layui-input-inline{
+margin-left: 70px;
+}
+</style>
+<div th:replace = "include/header::header"></div>
+<div style ="margin:0px auto;width:1000px;margin-top:30px;">
+<form th:action="@{/write_blog}" class="layui-form"  method = "post">
+ <div class="layui-form-item"><label  class="layui-form-label">标题</label><div class="layui-input-inline">  <input style="width:620px;" class="layui-input" type="text" name = "title" />
+</div></div>
+<div class="layui-form-item"><label  class="layui-form-label">摘要</label><div class="layui-input-inline">  
+  <textarea style="width:620px;"  name="subTitle" placeholder="请输入内容" class="layui-textarea"></textarea> </div></div>
+   <div class="layui-form-item">
+    <label class="layui-form-label">博文分类</label>
+    <div class="layui-input-block">
+      <select name="category" lay-verify="required">
+      <option th:each = "c : ${categories}" th:value="${c.id}"><span th:text = "${c.name}"></span></option>
+      </select>
+    </div>
+  </div>
+  
+  <div style = "width:1000px;">
+<textarea id="demo" name = "content" style="display: none;"></textarea>
+</div>
+
+<button class="layui-btn layui-btn-fluid " style="height:55px;font-size:18px;" >提交</button>
+</form>
+</div>
+<script>
+layui.use('layedit', function(){
+  var layedit = layui.layedit;
+  layedit.build('demo', {
+	  tool: [ 'strong' //加粗
+		  ,'italic' //斜体
+		  ,'underline' //下划线
+		  ,'del' //删除线
+		  
+		  ,'|' //分割线
+		  
+		  ,'left' //左对齐
+		  ,'center' //居中对齐
+		  ,'right' //右对齐
+		 
+		  ,'help' //帮助
+		  ]
+  });      //建立编辑器
+});
+</script>
+      
+</body>
+</html>

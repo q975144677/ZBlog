@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>Insert title here</title>
+</head>
+<body>
+<div th:each = "user:${users}">
+<div style = "margin:20px auto;width:500px;">
+<div style = "float:left;">
+<span th:text = "${user.id}"></span>&emsp;
+<span th:text = "${user.name}"></span>&emsp;
+<span th:text = "${user.username}"></span>&emsp;
+<span th:text = "${user.password}"></span>&emsp;
+</div>
+<div>
+<form th:action = "@{user/{id}(id=${user.id})}" method="post">
+<input type="hidden" name = "_method" value = "DELETE" />
+<input type="submit" value = "删除"/>
+</form>
+</div>
+</div>
+</div>
+</body>
+</html>

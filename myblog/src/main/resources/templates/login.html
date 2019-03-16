@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>Insert title here</title>
+</head>
+<body>
+<div th:replace = "include/header::header"></div>
+<span th:if="${error}" th:text = "${error}"></span>
+
+<div class="layui-anim layui-anim-scale" style = "width:600px;margin:50px auto;">
+<fieldset class="layui-elem-field" style = "position:relative;left:-50px;">
+  <legend>登录</legend>
+<div class="layui-field-box">
+<div>
+<form class="layui-form"  action="login" method = "post" style = "position:relative;width:600px;left:-20px;">
+  <div class="layui-form-item">
+    <label class="layui-form-label">账户名 ：</label>
+    <div class="layui-input-block">
+      <input type="text" name="username" required  lay-verify="required" placeholder="请输入用户名" autocomplete="off" class="layui-input">
+    </div>
+  </div>
+  <div class="layui-form-item">
+    <label class="layui-form-label">密码框：</label>
+    <div class="layui-input-block">
+      <input type="password" name="password" required lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
+    </div>
+  </div>
+
+    <div class="layui-form-item">
+    <label class="layui-form-label">记住我 ：</label>
+    <div class="layui-input-block"> 
+       <input type="checkbox" title="rememeber-me" name="remember-me"/> 
+    </div>
+  </div>
+   <div class="layui-form-item">
+    <div class="layui-input-block">
+      <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+      <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+    </div>
+  </div>
+</form>
+
+</div>
+</div>
+</fieldset>
+</div>
+</body><script>
+ layui.use('form', function () {
+  var form = layui.form;
+ });
+</script>
+
+</html>

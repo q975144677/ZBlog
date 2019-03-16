@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>Insert title here</title>
+</head>
+<body style ="background-color:#F8F8F8">
+<style>
+.layui-card-header{
+padding:10px;
+margin-top:10px;
+font-size: 25px !important;
+
+}
+.layui-card-header:hover{
+background-color:#5FB878;
+}
+.layui-card-body{
+height:55px;
+font-color:#eeeeee !important;
+}
+.category,.category1{
+width:100px;
+border:none !important;
+}
+.category:hover{
+background-color:#5FB878 !important;} 
+body{
+background-color:#c2c2c2;}
+
+</style>
+<nav th:replace = "include/header::header"></nav>
+
+
+ <div class="layui-col-md3" >
+     <div style = "width:1px;height: 1px;"></div>
+     </div>
+    
+    <div class="layui-col-md5"  style = "position:relative;left:0px;top:-2px">
+       <div style = "width:1px;height: 1px;"></div>
+       <div th:if = "${blogs.isEmpty()} "><span>空空如也</span></div>
+       	<div th:each = "blog : ${blogs}"> 
+       	<div class="layui-card" style = "margin:0px">
+ 		<a th:href="@{/blog/{id}(id = ${blog.id})}"> 
+ 		<div class="layui-card-header">
+ 		<span  th:text = "${blog.title}"></span>
+ <a id  = "22" th:href = "@{/my_blog/{username}/{id}(username =${session.SPRING_SECURITY_CONTEXT.authentication.principal.username},id = ${blog.id})}"  class = "del" style = "z-index :3"><i class="layui-icon layui-icon-close" style="font-size: 30px; color: #1E9FFF;float:right;"></i> </a>
+ 		</div></a>
+ 		
+ 			 <div class="layui-card-body">
+ 			 <span th:text=  "${blog.subTitle}"></span>
+ 	<br />
+ 		<span style = "float:right" th:text = " '作者 --->' +${blog.user.name}"></span>
+  </div>
+</div>
+</div>
+     
+     </div>
+     
+      <div class="layui-col-md3" >
+     <div style = "width:1px;height: 1px;"></div>
+     </div>
+     
+     <form action = ""  method = "post" id = "form">
+     <input type="hidden" name = "_method"  value = "DELETE"/>
+  
+     </form>
+     <script th:inline="javascript">
+     $(function(){
+    	 $(".del").click(function(){
+    		 var href = $(this).attr("href");
+    		 $("#form").attr("action",href).submit();
+    		 return false;
+    	 });
+    	 
+    	 
+     });
+     
+     </script>
+</body>
+</html>

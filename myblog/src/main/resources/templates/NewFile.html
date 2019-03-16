@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>Insert title here</title>
+</head>
+<body>
+<style>
+li{
+list-style-type: none;
+}
+.hide{
+display:none;
+}
+</style>
+<ul>
+	<li>树形菜单</li>
+	<li><ul>
+		<li><a href = "#" onclick = "fun()">文学艺术</a></li>
+		<li><ul value = "show" id = "wenxue">
+			<li>钢铁</li>
+			<li>人的</li>
+			<li>永远</li>
+		</ul></li>
+		<li>贴吧</li>
+	</ul></li>
+</ul> 
+</body>
+<script>
+function fun(){
+var wenxue  = document.getElementById("wenxue");
+if(wenxue.getAttribute("value") == "show"){
+	wenxue.classList.add("hide");	
+	wenxue.setAttribute("value","hide");
+}else{
+	wenxue.classList.remove("hide");
+	wenxue.setAttribute("value","show");
+}
+}
+</script>
+</html>

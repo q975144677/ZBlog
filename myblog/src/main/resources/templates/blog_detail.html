@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>Insert title here</title>
+</head>
+<body><style>
+.c1{
+
+}
+.c2{
+
+}
+.layui-card-header{
+padding:10px;
+margin-top:10px;
+font-size: 25px !important;
+
+}
+
+
+</style>
+
+
+<div th:replace = "include/header::header"></div><!--  dianzan <span th:text = "${blog.voteSize}"></span>
+<div th:text = "${blog.title}"></div>
+<div th:text = "${blog.subTitle}"></div>
+<div id = "old" th:text = "${blog.content}"></div>
+<div id = "new"></div>
+<div th:text = "${blog.commentSize}"></div>
+<a href = "#" id = "vote" class=  "c1">点赞</a>
+<a href = "#" id = "vote"  class = "c2">点赞</a>
+<div th:text=  "${blog.voteSize}"></div>
+<form th:action="@{/review/{id}(id=${blog.id})}" method = "post">
+<textarea name="content" id="" cols="30" rows="10"></textarea>
+<input type="submit" />
+
+</form>
+<div id = "sas"></div>
+<div th:each="review:${blog.reviews}" th:text = "${review.content}">2</div>
+-->
+<div style = "width:60%;margin:0px auto; ">
+
+
+<div class="layui-card">
+  
+<fieldset class="layui-elem-field">
+  <legend><span th:text = "${blog.title}"> </span></legend>
+  <div class="layui-field-box">
+ <span style = "font-size:24px;">摘要：</span><br /> <br /><span th:text = "${blog.subTitle}"></span>
+     <div style = "float:right;"><span>点赞数量--></span><span th:text = "${blog.voteSize}" id = "voteNumber"></span>
+      <a href = "#" id = "vote" class=  "c1"><i class="layui-icon layui-icon-praise" style="font-size: 30px; color: #1E9FFF;"></i>  </a>
+<a href = "#" id = "vote"  class = "c2"><i class="layui-icon layui-icon-praise" style="font-size: 30px; color: red;"></i></a>
+<br>
+
+</div>
+  </div>
+</fieldset>
+  <div class="layui-card-body" >
+<div id = "old" th:text = "${blog.content}"></div>
+<div id = "new" th:text = "${blog.content}"></div>
+  </div>
+</div>
+
+<fieldset class="layui-elem-field layui-field-title">
+<form class="layui-form"th:action="@{/review/{id}(id=${blog.id})}" method = "post">
+
+  <div class="layui-form-item layui-form-text">
+  
+  <div>  <label class="layui-form-label"><button class="layui-btn layui-btn-sm layui-btn-radius layui-btn-danger">    <i class="layui-icon">&#xe654;</i></button></label> </div>
+    <div class="layui-input-block"  style = "width:60%;position: relative  ">
+      <textarea name="content" placeholder="请输入内容" class="layui-textarea"></textarea>
+    </div>
+  </div>
+  </form>
+  <legend>评论 ： <span th:text = "${blog.commentSize}"></span></legend>
+  <div class="layui-field-box">
+
+  <ul class="layui-timeline">
+  <li class="layui-timeline-item" th:each = "review:${blog.reviews}">
+    <i class="layui-icon layui-timeline-axis">&#xe63f;</i>
+    <div class="layui-timeline-content layui-text">
+      <h3 class="layui-timeline-title"><span th:text = "${review.user.name}"></span></h3>
+      <p>
+  <span>  说：</span><span th:text = "${review.content}"></span>
+      </p>
+    </div>
+  </li>
+  
+
+</ul>
+  </div>
+</fieldset>
+
+
+</div>
+<a></a>
+<script th:inline="javascript">
+layui.use('form', function(){
+	  var form = layui.form;
+	  
+	  //监听提交
+
+	
+	});
+$(function(){
+	var n = $("#voteNumber") ;
+	$("#old").hide();
+	$("#new").html($("#old").text());
+	$(".c1").hide();
+	$(".c2").hide();
+if([[${!hasVote}]] ){
+$(".c1").show();
+}else{
+	$(".c2").show();
+}
+	$(".c1").click(function(){
+		var bid = [[${blog.id}]];
+		var url = "/myblog/vote";
+		n.html(Number(n.html())+1);
+		
+		$.post(
+				url,
+				{"bid":bid},
+				function(result){
+
+					$(".c1").hide();
+					$(".c2").show();
+				}
+		);
+
+	});
+	$(".c2").click(function(){
+		var bid = [[${blog.id}]];
+		var url = "/myblog/vote/"+bid;
+		n.html(Number(n.html())-1);
+		$.post(
+				url,
+
+				function(result){
+					$(".c2").hide();
+					$(".c1").show();
+					
+				}
+		);
+	});
+	
+});
+</script>
+</body>
+
+</html>
